@@ -3,7 +3,7 @@ defmodule Xmlex.Mixfile do
 
   def project do
     [app: :xmlex,
-     version: "0.0.1",
+     version: "0.0.2",
      deps: deps]
   end
 
@@ -30,9 +30,10 @@ defmodule Xmlex.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
+    github = "https://github.com/timCF"
     [
-      {:hashex, github: "timCF/hashex"},
-      {:extask, git: "https://github.com/d0rc/extask.git", override: true}
+      {:hashex, git: "#{github}/hashex"},
+      {:extask, git: "#{github}/extask.git"}
     ]
   end
 end
