@@ -3,20 +3,15 @@ defmodule Xmlex.Mixfile do
 
   def project do
     [app: :xmlex,
-     version: "0.0.2",
-     deps: deps]
+     version: "0.0.3",
+     deps: deps()]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications:  [
-                      :logger,
-                      :hashex,
-                      :extask,
-                      :xmerl
-                    ],
+    [applications:  [:logger, :hashex, :extask,:xmerl],
      mod: {Xmlex, []}]
   end
 
