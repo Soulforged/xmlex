@@ -1,5 +1,5 @@
 defmodule Xmlex.Xpath do
-	
+
 	def get(subj, path)
 	def get(subj = %Xmlex.XML{}, path) do
 		get([subj], path)
@@ -23,12 +23,11 @@ defmodule Xmlex.Xpath do
 					|> get( HashUtils.set(path, :path, []) )
 	end
 	def get(lst, path = %{path: [this|rest]}) do
-		Enum.filter_map(lst,
-			fn(%Xmlex.XML{tagname: tagname}) -> tagname == this end,
-			fn(%Xmlex.XML{childs: childs}) -> childs end )
-				|> List.flatten
-					|> get( HashUtils.set(path, :path, rest) )
+		Enum.filter(lst, fn(%Xmlex.XML{tagname: tagname}) -> tagname == this end)
+		|> Enum.map(fn(%Xmlex.XML{childs: childs}) -> childs end )
+		|> List.flatten
+		|> get( HashUtils.set(path, :path, rest) )
 	end
-	
+
 
 end

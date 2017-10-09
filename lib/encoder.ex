@@ -1,5 +1,5 @@
 defmodule Xmlex.Encoder do
-	
+
 	def encode!(content = %Xmlex.XML{}) do
 		{:result, res} = ExTask.run(fn() -> encode_process(content) end)
 							|> ExTask.await(:infinity)
@@ -12,7 +12,7 @@ defmodule Xmlex.Encoder do
 			err -> {:error, err}
 		end
 	end
-	
+
 
 	defp encode_process(content) do
 		[recurs_encode(content)]
@@ -42,7 +42,7 @@ defmodule Xmlex.Encoder do
 	defp prepare_attr_val(val) do
 		case val do
 			some when is_list(some) -> some
-			some when ( is_binary(some) or is_atom(some) or is_number(some) ) -> to_string(some) |> String.to_char_list
+			some when ( is_binary(some) or is_atom(some) or is_number(some) ) -> to_string(some) |> String.to_charlist
 		end
 	end
 	defp make_tagtext_and_childs(tagtext, childs) do

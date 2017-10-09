@@ -2,7 +2,7 @@ defmodule Xmlex.Decoder do
 	require Logger
 	require Record
 	require XmerlRecords
-	
+
 
 	def decode!(body) when is_binary(body) do
 		case try_parse_to_tree(body) do
@@ -13,7 +13,7 @@ defmodule Xmlex.Decoder do
 	def decode(body) when is_binary(body) do
 		case try_parse_to_tree(body) do
 			res = {:error, _} -> res
-			some_else -> 
+			some_else ->
 				case ExTask.run(fn() ->  recurs_parse(some_else) end )
 						|> ExTask.await(:infinity) do
 					{:result, res = %Xmlex.XML{}} -> res
@@ -57,9 +57,9 @@ defmodule Xmlex.Decoder do
 		""
 	end
 	defp get_text([data]) when Record.is_record(data) do
-		XmerlRecords.xmlText(data, :value) 
-			|> to_string
-				|> String.strip
+		XmerlRecords.xmlText(data, :value)
+		|> to_string
+		|> String.trim
 	end
 	# here we fixing bug when in xml are extra \n or \t symbols
 	defp get_text(_) do
@@ -76,8 +76,8 @@ defmodule Xmlex.Decoder do
 	# from xmlAttribute record to string
 	defp get_attr_val(data) when Record.is_record(data) do
 		XmerlRecords.xmlAttribute(data, :value)
-			|> to_string
-				|> String.strip
+		|> to_string
+		|> String.trim
 	end
 
 end
